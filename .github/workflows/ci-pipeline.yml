@@ -18,12 +18,12 @@ jobs:
     - name: Run Unit Tests # <--- NEW STEP  
       run: npm test
 
-build-and-push:
-  needs: test # <--- This job ONLY runs if the "test" job passes!
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v3
-    - name: Build Docker Image
-      run: |
-        docker build -t electricity-api:prod-${{ github.sha }} .
-        echo "Production image built successfully."
+  build-and-push:
+    needs: test # <--- This job ONLY runs if the "test" job passes!
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build Docker Image
+        run: |
+          docker build -t electricity-api:prod-${{ github.sha }} .
+          echo "Production image built successfully."
