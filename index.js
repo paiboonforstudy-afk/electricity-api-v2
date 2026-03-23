@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 // Helper: Load Data
 const loadData = (file) => JSON.parse(fs.readFileSync(`./data/${file}`, 'utf8'));
 // 1. API: Total electricity usage for each year
-app.get('/api/usage/total-by-year', (req, res) => {
+app.get('/api/usages/totalyear', (req, res) => {
     const data = loadData('electricity_usages_en.json');
     const totals = data.reduce((acc, curr) => {
         const year = curr.year;
@@ -64,7 +64,7 @@ app.get('/api/def/history/:province', (req, res) => {
 });
 
 // 6. API: User history for a specific province
-app.get('/api/ghi/history/:province', (req, res) => {
+app.get('/api/pastusers/:province', (req, res) => {
     const { province } = req.params;
     const data = loadData('electricity_users_en.json');
     const result = data.filter(d => d.province_name.toLowerCase() ===
